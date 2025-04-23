@@ -24,6 +24,10 @@ const FormBillSplit = ({ selectedFriend, onBillSplit }) => {
         type="text"
         value={paidByUser}
         onChange={(e) => {
+          // 用户输入的是数字吗
+          if (isNaN(e.target.value)) {
+            return;
+          }
           setPaidByUser((paidByUser) =>
             Number(e.target.value) > bill ? paidByUser : Number(e.target.value),
           );

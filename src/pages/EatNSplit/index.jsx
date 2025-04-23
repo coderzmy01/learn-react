@@ -64,7 +64,11 @@ const EatNSplit = () => {
         </button>
       </div>
       {selectedFriend && (
-        <FormBillSplit selectedFriend={selectedFriend} onBillSplit={handelBillSplit} />
+        <FormBillSplit
+          selectedFriend={selectedFriend}
+          onBillSplit={handelBillSplit}
+          key={selectedFriend.id}
+        />
       )}
     </div>
   );
