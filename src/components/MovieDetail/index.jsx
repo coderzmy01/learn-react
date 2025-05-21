@@ -28,6 +28,15 @@ const MovieDetail = ({ selectedId, watchedMovieRating, onBackToHome, onAddWatche
     onBackToHome();
   };
   useEffect(() => {
+    const cb = (e) => {
+      if (e.key === 'Escape') {
+        onBackToHome();
+      }
+    };
+    document.addEventListener('keydown', cb);
+    return () => document.removeEventListener('keydown', cb);
+  });
+  useEffect(() => {
     if (!selectedId) return;
     async function getMovieDetails() {
       setIsLoading(true);
