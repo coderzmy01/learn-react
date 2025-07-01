@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { KEY } from '../../config';
 import StarRating from '../StarRating';
 const MovieDetail = ({ selectedId, watchedMovieRating, onBackToHome, onAddWatched, isWatched }) => {
   const [movie, setMovie] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(false);
   const [userRating, setUserRating] = React.useState(0);
+  const countRef = useRef(0);
   const {
     Title: title,
     Poster: poster,
@@ -24,9 +25,16 @@ const MovieDetail = ({ selectedId, watchedMovieRating, onBackToHome, onAddWatche
       imdbRating: Number(imdbRating),
       userRating: Number(userRating),
       runtime: Number(runtime.split(' ').at(0)),
-    });
+      count: countRef.current,
+    }); 
     onBackToHome();
   };
+  useEffect(() => {
+    if (userRating > 0) {
+      countRef.current++;
+      console.log(countRef.current);
+    }
+  }, [userRating]);
   useEffect(() => {
     const cb = (e) => {
       if (e.key === 'Escape') {

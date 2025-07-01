@@ -2,7 +2,14 @@ import React from 'react';
 
 const MovieItem = ({ movie, children, onSelectMovie }) => {
   return (
-    <li key={movie.imdbID} onClick={() => onSelectMovie(movie.imdbID)}>
+    <li
+      key={movie.imdbID}
+      onClick={() => {
+        if (onSelectMovie) {
+          onSelectMovie(movie.imdbID);
+        }
+      }}
+    >
       <img src={movie.Poster} alt={`${movie.Title} poster`} />
       <h3>{movie.Title}</h3>
       <div>{children}</div>

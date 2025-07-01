@@ -22,7 +22,6 @@ const WatchedMovieList = ({ watched, onDeleteWatched }) => {
               <button className="btn-delete" onClick={() => onDeleteWatched(movie.imdbID)}>
                 X
               </button>
-              ß
             </>
           </MovieItem>
         </>
