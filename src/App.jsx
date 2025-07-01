@@ -15,7 +15,11 @@ const ErrorMessage = ({ message }) => {
 };
 export default function App() {
   const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState([]);
+  // 使用useState的初始值为函数，可以避免在组件渲染时重复调用函数
+  const [watched, setWatched] = useState(() => {
+    const storedWatched = localStorage.getItem('watched');
+    return storedWatched ? JSON.parse(storedWatched) : [];
+  });
   const [query, setQuery] = useState('');
   const [selectedId, setSelectedId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -58,9 +62,13 @@ export default function App() {
   const handelDeleteWatched = (id) => {
     setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
   };
+  // 使用useEffect来监听watched的变化，并将其存储到localStorage中
+  useEffect(() => {
+    localStorage.setItem('watched', JSON.stringify(watched));
+  }, [watched]);
 
   useEffect(() => {
-    handelBackToHome( );
+    handelBackToHome();
     loadMovies(query);
     return () => {
       controller.abort();
