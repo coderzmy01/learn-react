@@ -1,10 +1,12 @@
 // src/App.jsx
-import React from 'react';
+import Demo from './views/Demo';
 
 const App = () => {
   return (
     <div>
-      <div>Hello World</div>
+      {/* <div>Hello World</div>
+      <Button type="primary">Button</Button> */}
+      <Demo />
     </div>
   );
 };
