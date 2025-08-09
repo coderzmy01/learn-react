@@ -1,11 +1,11 @@
 // src/App.jsx
-import Demo2 from './views/Demo2';
+import Vote from './views/Vote';
 const App = () => {
   return (
     <div>
       {/* <div>Hello World</div>
       <Button type="primary">Button</Button> */}
-      <Demo2 />
+      <Vote />
     </div>
   );
 };
