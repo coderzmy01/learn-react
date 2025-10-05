@@ -1,21 +1,14 @@
-import React, { useEffect, useRef } from 'react';
+import { useRef } from 'react';
+import { useKeys } from '../../hooks/useKeys';
 const SearchBar = ({ movies, query, onChange }) => {
   const inputRef = useRef(null);
   // 使用useEffect来监听键盘事件，如果按下Enter键，则将输入框聚焦，并清空输入框
-  useEffect(() => {
-    const callback = (e) => {
-      if (e.key === 'Enter') {
-        inputRef.current.focus();
-        if (document.activeElement !== inputRef.current) {
-          onChange('');
-        }
-      }
-    };
-    document.addEventListener('keydown', callback);
-    return () => {
-      document.removeEventListener('keydown', callback);
-    };
-  }, []);
+  useKeys('Enter', () => {
+    inputRef.current.focus();
+    if (document.activeElement !== inputRef.current) {
+      onChange('');
+    }
+  });
   return (
     <nav className="nav-bar">
       <div className="logo">

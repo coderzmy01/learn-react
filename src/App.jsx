@@ -5,20 +5,15 @@ import MovieListBox from './components/MovieList/components/MovieListBox';
 import SearchBar from './components/SearchBar';
 import Summary from './components/WatchedMovie/components/Summary';
 import WatchedMovieList from './components/WatchedMovie/components/WatchedMovieList';
+import { useLocalStorage } from './hooks/useLocalStorage';
 import { useMovies } from './hooks/useMovies';
 
-const Loader = () => {
-  return <div className="loader">Loading...</div>;
-};
 const ErrorMessage = ({ message }) => {
   return <div className="error">{message}</div>;
 };
 export default function App() {
   // 使用useState的初始值为函数，可以避免在组件渲染时重复调用函数
-  const [watched, setWatched] = useState(() => {
-    const storedWatched = localStorage.getItem('watched');
-    return storedWatched ? JSON.parse(storedWatched) : [];
-  });
+  const [watched, setWatched] = useLocalStorage('watched', []);
   const [query, setQuery] = useState('');
   const [selectedId, setSelectedId] = useState(null);
 

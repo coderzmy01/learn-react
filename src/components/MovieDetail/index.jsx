@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { KEY } from '../../config';
+import { useKeys } from '../../hooks/useKeys';
 import StarRating from '../StarRating';
 const MovieDetail = ({ selectedId, watchedMovieRating, onBackToHome, onAddWatched, isWatched }) => {
   const [movie, setMovie] = React.useState({});
@@ -26,7 +27,7 @@ const MovieDetail = ({ selectedId, watchedMovieRating, onBackToHome, onAddWatche
       userRating: Number(userRating),
       runtime: Number(runtime.split(' ').at(0)),
       count: countRef.current,
-    }); 
+    });
     onBackToHome();
   };
   useEffect(() => {
@@ -35,15 +36,7 @@ const MovieDetail = ({ selectedId, watchedMovieRating, onBackToHome, onAddWatche
       console.log(countRef.current);
     }
   }, [userRating]);
-  useEffect(() => {
-    const cb = (e) => {
-      if (e.key === 'Escape') {
-        onBackToHome();
-      }
-    };
-    document.addEventListener('keydown', cb);
-    return () => document.removeEventListener('keydown', cb);
-  });
+  useKeys('Escape', onBackToHome);
   useEffect(() => {
     if (!selectedId) return;
     async function getMovieDetails() {
