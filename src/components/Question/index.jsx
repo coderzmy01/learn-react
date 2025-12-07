@@ -1,9 +1,9 @@
 import Options from './components/Options';
-const Question = ({ curQuestion, dispatch }) => {
+const Question = ({ curQuestion, dispatch, selected }) => {
   return (
     <div className="question">
       <h4>{curQuestion.question}</h4>
-      {<Options options={curQuestion.options} dispatch={dispatch} />}
+      {<Options question={curQuestion} dispatch={dispatch} selected={selected} />}
     </div>
   );
 };
