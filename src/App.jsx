@@ -64,6 +64,9 @@ const App = () => {
             highScore: state.points > state.highScore ? state.points : state.highScore,
           };
         }
+        case 'restart': {
+          return { ...initialState, questions: state.questions, status: 'ready' };
+        }
         default:
           throw new Error('Action unknown');
       }
@@ -112,7 +115,12 @@ const App = () => {
           </>
         )}
         {status === 'finished' && (
-          <FinishScreen points={points} maxPoints={maxPoints} highScore={highScore} />
+          <FinishScreen
+            points={points}
+            maxPoints={maxPoints}
+            highScore={highScore}
+            dispatch={dispatch}
+          />
         )}
       </QuizList>
     </>
