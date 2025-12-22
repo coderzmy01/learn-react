@@ -1,5 +1,11 @@
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useCities } from '../../context/CitiesContext';
+import BackTo from '../BackTo';
+import Message from '../Message';
+import Spinner from '../Spinner';
 import styles from './City.module.css';
+
 const formatDate = (date) =>
   new Intl.DateTimeFormat('en', {
     day: 'numeric',
@@ -10,14 +16,16 @@ const formatDate = (date) =>
 
 function CityDetail() {
   const { id } = useParams();
-  // TEMP DATA
-  const currentCity = {
-    cityName: 'Lisbon',
-    emoji: '🇵🇹',
-    date: '2027-10-31T15:59:59.138Z',
-    notes: 'My favorite city so far!',
-  };
-
+  const { currentCity, loadCity, isLoading } = useCities();
+  useEffect(() => {
+    loadCity(id);
+  }, [id]);
+  if (isLoading) {
+    return <Spinner />;
+  }
+  if (!currentCity) {
+    return <Message message="City not found." />;
+  }
   const { cityName, emoji, date, notes } = currentCity;
 
   return (
@@ -48,7 +56,9 @@ function CityDetail() {
         </a>
       </div>
 
-      <div>{/* <ButtonBack /> */}</div>
+      <div>
+        <BackTo />
+      </div>
     </div>
   );
 }

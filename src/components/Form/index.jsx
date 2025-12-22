@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import BackTo from '../BackTo';
 import Button from '../Button';
 import styles from './Form.module.css';
 
@@ -40,9 +41,7 @@ function Form() {
 
       <div className={styles.buttons}>
         <Button>Add</Button>
-        <Button type="back" onClick={() => navigate(-1)}>
-          &larr; Back
-        </Button>
+        <BackTo />
       </div>
     </form>
   );

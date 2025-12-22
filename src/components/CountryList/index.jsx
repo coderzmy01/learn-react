@@ -1,9 +1,11 @@
+import { useCities } from '../../context/CitiesContext';
 import Message from '../Message';
 import Spinner from '../Spinner';
 import CountryItem from './components/CountryItem';
 import styles from './CountryList.module.css';
 
-const CountryList = ({ cities, isLoading }) => {
+const CountryList = () => {
+  const { cities, isLoading } = useCities();
   const countries = cities.reduce((acc, city) => {
     if (!acc.some((item) => item.country === city.country)) {
       return [...acc, { ...city }];
