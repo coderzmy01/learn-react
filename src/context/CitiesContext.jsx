@@ -18,7 +18,12 @@ const CitiesProvider = ({ children }) => {
       try {
         const res = await fetch('http://localhost:3001/cities');
         const data = await res.json();
-        setCities(data);
+        const cities = data.map((city) => ({
+          ...city,
+          lat: city.position.lat,
+          lng: city.position.lng,
+        }));
+        setCities(cities);
       } catch (error) {
         console.log(error);
       } finally {
