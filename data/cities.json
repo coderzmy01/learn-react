@@ -35,6 +35,42 @@
         "lng": 13.376933665713324
       },
       "id": 98443197
+    },
+    {
+      "id": 1767099286251,
+      "cityName": "Qiandongnan Miao and Dong Autonomous Prefecture",
+      "country": "CN",
+      "emoji": "🇨🇳",
+      "date": "2025-12-30T12:54:32.059Z",
+      "notes": "sdd",
+      "position": {
+        "lat": 26.27371402440643,
+        "lng": 108.69873046875001
+      }
+    },
+    {
+      "id": 1767099411647,
+      "cityName": "Xuancheng",
+      "country": "CN",
+      "emoji": "🇨🇳",
+      "date": "2025-12-30T12:56:49.863Z",
+      "notes": "",
+      "position": {
+        "lat": 30.20211367909724,
+        "lng": 118.89404296875001
+      }
+    },
+    {
+      "id": 1767099455549,
+      "cityName": "Huaihua",
+      "country": "CN",
+      "emoji": "🇨🇳",
+      "date": "2025-12-30T12:57:33.705Z",
+      "notes": "",
+      "position": {
+        "lat": 27.293689224852407,
+        "lng": 110.12695312500001
+      }
     }
   ]
 }

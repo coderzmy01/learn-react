@@ -18,12 +18,15 @@ const GetMapPosition = ({ setTempMarker, tempMarker }) => {
   const map = useMapEvents({
     click: (e) => {
       // 记录点击位置并在地图上打点
-      setTempMarker(e.latlng);
+      setTempMarker({
+        latitude: e.latlng.lat,
+        longitude: e.latlng.lng,
+      });
       // 跳转表单，并携带当前点击的位置
       navigate(`form?latitude=${e.latlng.lat}&longitude=${e.latlng.lng}`);
     },
   });
-  return tempMarker && <Marker position={[tempMarker.lat, tempMarker.lng]} />;
+  return tempMarker && <Marker position={[tempMarker.latitude, tempMarker.longitude]} />;
 };
 const Map = () => {
   const { cities } = useCities();
@@ -40,7 +43,8 @@ const Map = () => {
   }, [latitude, longitude]);
   useEffect(() => {
     if (position) {
-      setTempMarker([position.latitude, position.longitude]);
+      console.log(position);
+      setTempMarker({ latitude: position.latitude, longitude: position.longitude });
       setMapPosition([position.latitude, position.longitude]);
     }
   }, [position]);
@@ -58,7 +62,7 @@ const Map = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {cities.map((city) => (
-          <Marker key={city.id} position={[city.lat, city.lng]}>
+          <Marker key={city.id} position={[city.position.lat, city.position.lng]}>
             <Popup>{city.cityName}</Popup>
           </Marker>
         ))}
