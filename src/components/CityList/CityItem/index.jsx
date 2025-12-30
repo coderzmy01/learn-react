@@ -17,6 +17,11 @@ const CityItem = ({ city }) => {
     date,
     position: { lat, lng },
   } = city;
+  const { deleteCity } = useCities();
+  const handleDelete = (id, e) => {
+    e.preventDefault();
+    deleteCity(id);
+  };
   return (
     <Link to={`${id}?latitude=${lat}&longitude=${lng}`}>
       <div
@@ -25,7 +30,10 @@ const CityItem = ({ city }) => {
         <div className={styles.emoji}>{emoji}</div>
         <div className={styles.name}>{cityName}</div>
         <div className={styles.date}>{TimeFormat({ date })}</div>
-        <button className={styles.deleteBtn}> &times;</button>
+        <button className={styles.deleteBtn} onClick={(e) => handleDelete(id, e)}>
+          {' '}
+          &times;
+        </button>
       </div>
     </Link>
   );

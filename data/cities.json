@@ -10,66 +10,54 @@
         "lat": 38.727881642324164,
         "lng": -9.140900099907554
       },
-      "id": 73930385
+      "id": "73930385"
     },
     {
-      "cityName": "Madrid",
-      "country": "Spain",
-      "emoji": "🇪🇸",
-      "date": "2027-07-15T08:22:53.976Z",
-      "notes": "",
-      "position": {
-        "lat": 40.46635901755316,
-        "lng": -3.7133789062500004
-      },
-      "id": 17806751
-    },
-    {
-      "cityName": "Berlin",
-      "country": "Germany",
-      "emoji": "🇩🇪",
-      "date": "2027-02-12T09:24:11.863Z",
-      "notes": "Amazing 😃",
-      "position": {
-        "lat": 52.53586782505711,
-        "lng": 13.376933665713324
-      },
-      "id": 98443197
-    },
-    {
-      "id": 1767099286251,
-      "cityName": "Qiandongnan Miao and Dong Autonomous Prefecture",
+      "id": 1767103659669,
+      "cityName": "Shangrao",
       "country": "CN",
       "emoji": "🇨🇳",
-      "date": "2025-12-30T12:54:32.059Z",
-      "notes": "sdd",
+      "date": "2025-12-30T14:07:35.426Z",
+      "notes": "",
       "position": {
-        "lat": 26.27371402440643,
-        "lng": 108.69873046875001
+        "lat": 28.34306490482549,
+        "lng": 117.99316406250001
       }
     },
     {
-      "id": 1767099411647,
-      "cityName": "Xuancheng",
-      "country": "CN",
-      "emoji": "🇨🇳",
-      "date": "2025-12-30T12:56:49.863Z",
+      "id": 1767103677210,
+      "cityName": "Hong Kong",
+      "country": "HK",
+      "emoji": "🇭🇰",
+      "date": "2025-12-30T14:07:49.168Z",
       "notes": "",
       "position": {
-        "lat": 30.20211367909724,
-        "lng": 118.89404296875001
+        "lat": 22.378015781668726,
+        "lng": 114.13696289062501
       }
     },
     {
-      "id": 1767099455549,
-      "cityName": "Huaihua",
-      "country": "CN",
-      "emoji": "🇨🇳",
-      "date": "2025-12-30T12:57:33.705Z",
+      "id": 1767103689339,
+      "cityName": "Hokuto",
+      "country": "JP",
+      "emoji": "🇯🇵",
+      "date": "2025-12-30T14:08:07.835Z",
       "notes": "",
       "position": {
-        "lat": 27.293689224852407,
-        "lng": 110.12695312500001
+        "lat": 35.94243575255426,
+        "lng": 138.42773437500003
+      }
+    },
+    {
+      "id": 1767103788162,
+      "cityName": "Ilulissat",
+      "country": "GL",
+      "emoji": "🇬🇱",
+      "date": "2025-12-30T14:09:27.574Z",
+      "notes": "",
+      "position": {
+        "lat": 76.88077457250164,
+        "lng": -45.52734375000001
       }
     }
   ]
