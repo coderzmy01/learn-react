@@ -1,25 +1,25 @@
-import { createContext, useContext, useReducer } from 'react';
-import { FAKE_USER } from '../constant';
+import { createContext, useContext, useReducer } from "react";
+import { FAKE_USER } from "../constant";
 const AuthContext = createContext();
 const useAuth = () => {
   if (!useContext(AuthContext)) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return useContext(AuthContext);
 };
 const initialState = {
   user: null,
-  isLoggedIn: true,
+  isLoggedIn: false,
 };
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'login':
+    case "login":
       return {
         ...state,
         user: action.payload,
         isLoggedIn: true,
       };
-    case 'logout':
+    case "logout":
       return {
         ...state,
         user: null,
@@ -29,18 +29,19 @@ const reducer = (state, action) => {
 };
 const AuthProvider = ({ children }) => {
   const [{ user, isLoggedIn }, dispatch] = useReducer(reducer, initialState);
-  const login = ({ username, password }) => {
-    if (username === 'jack' && password === 'qwerty') {
+  const login = ({ email, password }) => {
+    if (email === "jack@example.com" && password === "qwerty") {
       dispatch({
-        type: 'login',
+        type: "login",
         payload: FAKE_USER,
       });
+      return true;
     }
-    return;
+    return false;
   };
   const logout = () => {
     dispatch({
-      type: 'logout',
+      type: "logout",
     });
   };
   return (
