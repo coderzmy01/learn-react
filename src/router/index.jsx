@@ -7,6 +7,7 @@ import Order from "../features/order/Order";
 import CreateOrder from "../features/order/CreateOrder";
 import Cart from "../features/cart/Cart";
 import Menu, { loader as menuLoader } from "../features/menu/Menu";
+import Error from "../components/Error";
 const routes = [
   {
     element: <AppLayout />,
@@ -15,7 +16,12 @@ const routes = [
       { path: "/order/:orderId", element: <Order /> },
       { path: "/order/create", element: <CreateOrder /> },
       { path: "/cart", element: <Cart /> },
-      { path: "/menu", element: <Menu />, loader: menuLoader },
+      {
+        path: "/menu",
+        element: <Menu />,
+        loader: menuLoader,
+        errorElement: <Error />,
+      },
     ],
   },
 ];
