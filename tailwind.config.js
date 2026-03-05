@@ -19,6 +19,9 @@ export default {
         'accent-disabled-hover': '#EF4444',
         'accent-disabled-active': '#EF4444',
       },
+      height: {
+        screen: '100dvh',
+      },
     },
   },
   plugins: [],
