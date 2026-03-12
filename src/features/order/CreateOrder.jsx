@@ -8,13 +8,14 @@ import {
 } from 'react-router-dom';
 import Button from '../../components/Button';
 import { useActionData } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import store from '../../store';
 import {
   clearCart,
   getTotalPrice,
 } from '../cart/cartSlice';
 import { formatCurrency } from '../../utils/helpers';
+import { featchAddressAsync } from '../user/userSlice';
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
   /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
@@ -30,6 +31,7 @@ function CreateOrder() {
   const finalPrice = totalPrice + priorityPrice;
   const navigation = useNavigation();
   const formErrors = useActionData();
+  const dispatch = useDispatch();
   const isSubmitting = navigation.state === 'submitting';
   if (cart.length === 0) {
     return (
@@ -44,6 +46,13 @@ function CreateOrder() {
       <h2 className="mb-8 text-2xl font-semibold">
         Ready to order? Let's go!
       </h2>
+      <Button
+        onClick={() => {
+          dispatch(featchAddressAsync());
+        }}
+      >
+        &larr; Back to cart
+      </Button>
 
       <Form method="post">
         <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center">
