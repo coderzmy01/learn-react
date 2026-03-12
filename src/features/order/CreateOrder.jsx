@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { createOrder } from '../../services/apiRestaurant';
+import EmptyCart from '../cart/EmptyCart';
 import {
   redirect,
   Form,
@@ -7,43 +8,36 @@ import {
 } from 'react-router-dom';
 import Button from '../../components/Button';
 import { useActionData } from 'react-router-dom';
-
+import { useSelector } from 'react-redux';
+import store from '../../store';
+import {
+  clearCart,
+  getTotalPrice,
+} from '../cart/cartSlice';
+import { formatCurrency } from '../../utils/helpers';
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
   /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
     str,
   );
 
-const fakeCart = [
-  {
-    pizzaId: 12,
-    name: 'Mediterranean',
-    quantity: 2,
-    unitPrice: 16,
-    totalPrice: 32,
-  },
-  {
-    pizzaId: 6,
-    name: 'Vegetale',
-    quantity: 1,
-    unitPrice: 13,
-    totalPrice: 13,
-  },
-  {
-    pizzaId: 11,
-    name: 'Spinach and Mushroom',
-    quantity: 1,
-    unitPrice: 15,
-    totalPrice: 15,
-  },
-];
-
 function CreateOrder() {
-  // const [withPriority, setWithPriority] = useState(false);
-  const cart = fakeCart;
+  const [withPriority, setWithPriority] = useState(false);
+  const cart = useSelector((state) => state.cart.items);
+  const totalPrice = useSelector(getTotalPrice);
+  const priorityPrice =
+    withPriority === 'on' ? totalPrice * 0.2 : 0;
+  const finalPrice = totalPrice + priorityPrice;
   const navigation = useNavigation();
   const formErrors = useActionData();
   const isSubmitting = navigation.state === 'submitting';
+  if (cart.length === 0) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <EmptyCart />
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -99,8 +93,12 @@ function CreateOrder() {
             type="checkbox"
             name="priority"
             id="priority"
-            // value={withPriority}
-            // onChange={(e) => setWithPriority(e.target.checked)}
+            value={withPriority}
+            onChange={(e) =>
+              setWithPriority(
+                e.target.checked ? 'on' : 'off',
+              )
+            }
           />
           <label htmlFor="priority">
             Want to yo give your order priority?
@@ -114,7 +112,9 @@ function CreateOrder() {
             value={JSON.stringify(cart)}
           />
           <Button disabled={isSubmitting}>
-            {isSubmitting ? 'Submitting...' : 'Order now'}
+            {isSubmitting
+              ? 'Submitting...'
+              : `Order now (Total: $${formatCurrency(finalPrice)})`}
           </Button>
         </div>
       </Form>
@@ -123,8 +123,7 @@ function CreateOrder() {
 }
 export const action = async ({ request }) => {
   const formData = await request.formData();
-  console.log(formData.cart, 'formData.cart');
-  console.log(formData, 'formData');
+
   const data = Object.fromEntries(formData);
   const order = {
     customer: data.customer,
@@ -141,6 +140,7 @@ export const action = async ({ request }) => {
   if (Object.keys(errors).length > 0) return errors;
 
   const newOrder = await createOrder(order);
+  store.dispatch(clearCart());
   return redirect(`/order/${newOrder.id}`);
 };
 export default CreateOrder;

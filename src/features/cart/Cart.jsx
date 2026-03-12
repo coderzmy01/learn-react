@@ -37,7 +37,7 @@ function Cart() {
             ))}
           </ul>
           <div className="mt-4 space-x-4">
-            <Button to="/order/new">Order pizzas</Button>
+            <Button to="/order/create">Order pizzas</Button>
             <Button
               type="secondary"
               onClick={handleClearCart}
