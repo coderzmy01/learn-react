@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 function Button({
   children,
   disabled,
+  className,
   to,
   type = 'primary',
   onClick,
@@ -19,7 +20,10 @@ function Button({
 
   if (to)
     return (
-      <Link to={to} className={styles[type]}>
+      <Link
+        to={to}
+        className={styles[type] + ' ' + className}
+      >
         {children}
       </Link>
     );
@@ -27,7 +31,7 @@ function Button({
   return (
     <button
       disabled={disabled}
-      className={styles[type]}
+      className={styles[type] + ' ' + className}
       onClick={onClick}
     >
       {children}

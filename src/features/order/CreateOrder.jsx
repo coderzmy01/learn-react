@@ -25,6 +25,13 @@ const isValidPhone = (str) =>
 function CreateOrder() {
   const [withPriority, setWithPriority] = useState(false);
   const cart = useSelector((state) => state.cart.items);
+  const {
+    position,
+    address,
+    status: addressStatus,
+    errorMessage,
+    userName,
+  } = useSelector((state) => state.user);
   const totalPrice = useSelector(getTotalPrice);
   const priorityPrice =
     withPriority === 'on' ? totalPrice * 0.2 : 0;
@@ -46,13 +53,6 @@ function CreateOrder() {
       <h2 className="mb-8 text-2xl font-semibold">
         Ready to order? Let's go!
       </h2>
-      <Button
-        onClick={() => {
-          dispatch(featchAddressAsync());
-        }}
-      >
-        &larr; Back to cart
-      </Button>
 
       <Form method="post">
         <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center">
@@ -86,13 +86,31 @@ function CreateOrder() {
 
         <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center">
           <label className="sm:basis-40">Address</label>
-          <div className="grow">
+          <div className="relative grow">
             <input
               type="text"
               name="address"
               className="input w-full"
+              defaultValue={address}
               required
             />
+            {!position && (
+              <Button
+                disabled={addressStatus === 'loading'}
+                type="small"
+                className="absolute right-0 top-[4px] z-10"
+                onClick={() =>
+                  dispatch(featchAddressAsync())
+                }
+              >
+                Add Address
+              </Button>
+            )}
+            {errorMessage && (
+              <p className="mt-2 rounded-md bg-red-100 px-2 py-1 text-sm text-red-500">
+                {errorMessage}
+              </p>
+            )}
           </div>
         </div>
 
@@ -120,7 +138,21 @@ function CreateOrder() {
             name="cart"
             value={JSON.stringify(cart)}
           />
-          <Button disabled={isSubmitting}>
+          <input
+            type="hidden"
+            name="position"
+            value={
+              position?.latitude
+                ? `${position.latitude},${position.longitude}`
+                : ''
+            }
+          />
+          <Button
+            disabled={
+              isSubmitting || addressStatus === 'loading'
+            }
+            type="primary"
+          >
             {isSubmitting
               ? 'Submitting...'
               : `Order now (Total: $${formatCurrency(finalPrice)})`}
@@ -140,6 +172,7 @@ export const action = async ({ request }) => {
     address: data.address,
     priority: data.priority === 'on',
     cart: JSON.parse(data.cart),
+    position: data.position,
   };
   const errors = {};
   if (!isValidPhone(order.phone))

@@ -35,6 +35,7 @@ const initialState = {
   userName: 'zyming',
   address: null,
   position: null,
+  errorMessage: null,
 };
 const userSlice = createSlice({
   name: 'user',
@@ -66,7 +67,7 @@ const userSlice = createSlice({
         featchAddressAsync.rejected,
         (state, action) => {
           state.status = 'error';
-          state.errorMessage = action.payload.message;
+          state.errorMessage = action.error.message;
         },
       );
   },
